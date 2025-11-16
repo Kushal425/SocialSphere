@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./pages/login";
 import Register from "./pages/register";
+import Dashboard from "./pages/dashboard";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <p className="text-gray-500 mt-2">Login or Register to continue.</p>
           </div>
         } />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );

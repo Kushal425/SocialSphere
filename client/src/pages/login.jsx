@@ -1,7 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 function Login() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
 
@@ -16,6 +19,7 @@ function Login() {
       const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/login`, form);
       localStorage.setItem("token", res.data.token);
       setMessage("Login successful!");
+      navigate("/dashboard");
     } catch (err) {
       setMessage(err.response?.data?.message || "Login failed");
     }
