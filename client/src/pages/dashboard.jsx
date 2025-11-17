@@ -1,14 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-function Dashboard() {
+export default function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-    }
+    if (!localStorage.getItem("token")) navigate("/login");
   }, []);
 
   const logout = () => {
@@ -17,21 +14,25 @@ function Dashboard() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
-      <h1 className="text-3xl font-bold text-blue-600 mb-4">
-        Dashboard 🏠
-      </h1>
-      <p className="text-gray-600 mb-6">
-        You are logged in successfully!
-      </p>
-      <button
-        onClick={logout}
-        className="bg-red-500 text-white px-4 py-2 rounded"
-      >
-        Logout
-      </button>
+    <div className="min-h-screen bg-animated flex items-center justify-center text-white p-6">
+
+      <div className="backdrop-blur-lg bg-white/10 p-10 rounded-3xl shadow-2xl w-full max-w-xl text-center">
+        <h1 className="text-4xl font-bold mb-4 drop-shadow">
+          Welcome to SocialSphere 🎉
+        </h1>
+
+        <p className="opacity-90 mb-6">
+          You are successfully logged in.
+        </p>
+
+        <button
+          onClick={logout}
+          className="px-8 py-3 bg-white text-blue-700 font-semibold rounded-xl 
+          shadow-lg hover:bg-gray-200 transition transform hover:scale-105"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 }
-
-export default Dashboard;
