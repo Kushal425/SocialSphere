@@ -2,6 +2,12 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
+import Messages from "./pages/messages";
+import Profile from "./pages/profile";
+import Notifications from "./pages/notifications";
+import Landing from "./pages/landing";
+import { AuthProvider } from "./context/AuthContext";
+import Layout from "./components/Layout";
 
 // Fade Wrapper
 function PageWrapper({ children }) {
@@ -16,9 +22,10 @@ function ProtectedRoute({ children }) {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+        <Route path="/" element={<Landing />} />
 
         <Route
           path="/login"
@@ -42,13 +49,55 @@ export default function App() {
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <PageWrapper>
-                <Dashboard />
-              </PageWrapper>
+              <Layout>
+                <PageWrapper>
+                  <Dashboard />
+                </PageWrapper>
+              </Layout>
             </ProtectedRoute>
           }
         />
-      </Routes>
-    </BrowserRouter>
+
+        <Route
+          path="/messages"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <PageWrapper>
+                  <Messages />
+                </PageWrapper>
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/notifications"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <PageWrapper>
+                  <Notifications />
+                </PageWrapper>
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/profile/:id"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <PageWrapper>
+                  <Profile />
+                </PageWrapper>
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
